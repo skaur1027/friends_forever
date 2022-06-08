@@ -59,7 +59,7 @@ To run this app on your local computer, follow these steps:
 
 Clone repository:
 ```
-$ git clone {{ link to repo }}
+$ git clone https://github.com/skaur1027/friends_forever
 ```
 
 Create a virtual environment:
