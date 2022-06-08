@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/admin.css"/>
+<div class="container">
+
+    {% if users or posts %}
+    {% for user in users %}
+    {% if user.id != current_user.id %}
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <strong>Name:</strong><a href="{{ url_for('user', name=user.name) }}"> {{ user.name }}</a><br/><br/>
+                            {% if user.id != current_user.id %}
+                            <a href="{{ url_for('delete_record', id=user.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-4">
+                            {% if user.profile_picture %}
+                            <img src="{{ url_for('static', filename='images/' + user.profile_picture) }}" width = "200" align="right"><br>
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/default.jpeg') }}" width = "180" align="right">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div> <br>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for post in posts %}
+        {% if post.poster_id != current_user.id %}
+        <div class="card">
+            <div class="card-body">
+                <div class="col-8">
+                    <h2><a href="{{ url_for('post', id=post.post_id) }}">{{ post.title }}</a></h2>
+                    <strong><small>By:</strong> {{ post.poster.name }}<br/>
+                    <strong>Date:</strong> {{ post.date_posted.strftime("%m-%d-%Y") }}</small>
+                    {{ post.content|safe }}
+                    <a href="{{ url_for('delete_post', id=post.post_id)}}" class="btn btn-danger btn-sm">Delete Post</a>    
+                </div> <br/>
+            </div>
+        </div><br>
+        {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</div>
+{% endblock content %}
+
+
+

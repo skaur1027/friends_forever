@@ -1,0 +1,29 @@
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;  
+  top: 11.5%;
+}
+
+.left {
+  left: 0;
+  background-image: url("/static/images/fun.png ");
+  background-size: cover;
+  color: white;
+}
+
+.right {
+  right: 0;
+  background-color: #e3f2fd;
+  font-size: 25px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

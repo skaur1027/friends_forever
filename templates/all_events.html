@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/events.css"/>
+<div class="container">
+{% for record in data %}
+    <div class="card">
+        <div class="card__header">
+            <img src="{{ record.get('images')[1].get('url') }}" alt="card__image" class="card__image" width="600">
+        </div>
+        <div class="card__body">
+            <span class="tag tag-blue">{{ record.get('type') }}</span>
+            <h4> {{ record.get('name') }}</h4>
+            <div>
+                <div class="wrapper">
+                        <button class="button big-btn" onclick="NewTab()">Event Link</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function NewTab() {
+                window.open("{{ record.get('url') }}", "_blank");
+                }
+        </script>
+    </div>   
+    {% endfor %}
+</div>
+
+{% endblock content %}

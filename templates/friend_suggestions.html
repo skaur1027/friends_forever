@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/friend_suggestions.css"/>
+<div class="container">
+{% for user in users %}
+    {% if user.id != current_user.id and user.id not in result %}
+    <div class="card">
+        <div class="card__header">
+            {% if user.profile_picture %}
+            <img src="{{ url_for('static', filename='images/' + user.profile_picture) }}" alt="card__image" class="card__image" width="600">
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default.jpeg') }}" alt="card__image" class="card__image" width="600">
+            {% endif %}
+        </div>
+        <div class="card__body">
+            {% if user.location == current_user.location %}
+                <span class="tag tag-blue">Location</span>
+            {% elif user.profession == current_user.profession %}
+                <span class="tag tag-red">Profession</span>
+            {% elif user.hobby == current_user.hobby %}
+            <span class="tag tag-brown">Hobbies</span>
+            {% elif user.favorite_movie == current_user.favorite_movie %}
+                <span class="tag tag-red">Movie</span>
+            {% elif user.favorite_book == current_user.favorite_book %}
+                <span class="tag tag-brown">Books</span>
+            {% endif %}
+            <h4><a href="{{ url_for('user', name=user.name) }}">{{ user.name }}</a></h4>
+            {% if user.location == '' %}
+            <strong>Location:</strong><p>Unknown</p>
+            {% else %}
+            <strong>Location:</strong>{{ user.location }}
+            {% endif %}
+        </div>
+        <div class="card__footer">
+            <div class="user">
+                <div class="user__info">
+                    <a href="{{ url_for('user', name=user.name) }}" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    <a href="{{ url_for('follow', id=user.id) }}" class="btn btn-outline-primary btn-sm">Follow</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+{%  endblock %}

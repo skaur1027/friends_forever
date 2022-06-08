@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/register.css"/>
+
+<div class="split left">
+	<div class="centered">
+	</div>
+</div>
+
+<div class="split right">
+	<div class="centered">
+	<h3>
+		{% for message in get_flashed_messages() %}
+	
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{ message }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+		{% endfor %}
+		</h3>
+		<h1>Friends Forever</h1>
+		<h6>Start the next chapter of your life with us!</h6><br>
+		<form method="POST">
+			{{ form.hidden_tag() }}
+
+			{{ form.name(class="form-control") }}<br>
+
+			{{ form.email(class="form-control") }}
+			<br/>
+
+			{{ form.birthday(class="form-control") }}
+			<br/>
+
+			{{ form.password_hash(class="form-control") }}
+			<br/>
+
+			{{ form.password_hash2(class="form-control") }}<br>
+
+			{{ form.submit(class="btn btn-primary") }}<br>
+			<br>
+			<p><a href="{{ url_for('login') }}">Click here to sign in</a></p>
+		</form>
+	</div>
+</div>
+<br/>
+
+{% endblock content %}

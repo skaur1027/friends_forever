@@ -1,0 +1,55 @@
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  top: auto;
+}
+
+.left {
+  left: 0;
+  background-image: url("/static/images/people.png");
+  background-size: cover;
+  color: white;
+}
+
+.right {
+  right: 0;
+  background-color: #e3f2fd;
+  font-size: 25px;
+  height: 90%
+}
+  
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
+h1{
+  font-family: cursive;
+  font-size: 60px;
+  color: black;
+}
+
+h3, h6{
+  font-size: 0.67em;
+  font-family: cursive;
+}
+
+form{
+    display: block;
+}
+
+p{
+  font-size: 20px;
+  font-family: cursive;
+ }
+
+ footer{
+  font-family: cursive;
+  font-weight: 300;
+  text-align: righ;
+ }

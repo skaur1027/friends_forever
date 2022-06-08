@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/profile.css"/>
+
+
+	<div class="card">
+        <div class="card-body">
+         
+          <p class="card-text">
+            
+      <div class="container">
+          <div class="row">
+              <div class="col-8" style="font-size: 20px">
+      
+          <strong>Name:</strong>
+          {{ current_user.name }}<br/>
+      
+          <strong>Email:</strong>
+          {{ current_user.email }}<br/>
+
+          <strong>Location:</strong>
+          {{ current_user.location }}<br/>
+
+          <strong>Gender:</strong>
+          {{ current_user.gender }}<br/>
+
+          <strong>Profession:</strong>
+          {{ current_user.profession }}<br/>
+
+          <strong>Hobby:</strong>
+          {{ current_user.hobby }}<br/>
+
+          <strong>Favorite Movie:</strong>
+          {{ current_user.favorite_movie }}<br/>
+          
+          <strong>Favorite Book:</strong>
+          {{ current_user.favorite_book }}<br/>
+
+          <strong>Relationship Status:</strong>
+          {{ current_user.relationship }}<br/>
+            
+          <strong>Date Joined:</strong>
+          {{ current_user.date_added.strftime("%m-%d-%Y") }}
+        </p>
+          <a href="{{ url_for('view_friends') }}" class="btn btn-outline-primary btn-sm">View Friends</a>
+          <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+          <a href="{{ url_for('delete_record', id=current_user.id) }}" class="btn btn-danger btn-sm">Delete</a>
+
+    </div>  
+    <div class="col-4">
+      {% if current_user.profile_picture %}
+      <img src="{{ url_for('static', filename='images/' + current_user.profile_picture) }}" width=auto height=auto align="right">
+
+      {% else %}
+        <img class="circular--landscape" src="{{ url_for('static', filename='images/default.jpeg') }}" width="250" height="250" align="right">
+      {% endif %}
+     </div>
+     </div>
+      </div></div></div>
+<br/>
+      <div class="card">
+        <div class="card-header" style="font-size: 25px">
+          Update Profile
+        </div>
+        <div class="card-body" style="font-size: 20px">
+            <form action="/dashboard"  method="POST" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+              {{ form.name(class="form-control", value=name_to_update.name) }}
+              <br/>
+              {{ form.email(class="form-control", value=name_to_update.email) }}
+              <br/>
+              {{ form.gender(class="form-control", value=name_to_update.gender) }}
+              <br/>
+              {{ form.location(class="form-control", value=name_to_update.location) }}
+              <br/>
+              {{ form.profession(class="form-control", value=name_to_update.profession) }}
+              <br/>
+              {{ form.hobby(class="form-control", value=name_to_update.hobby) }}
+              <br/>
+              {{ form.favorite_movie(class="form-control", value=name_to_update.movie) }}
+              <br/>
+              {{ form.favorite_book(class="form-control", value=name_to_update.book) }}
+              <br/>
+              {{ form.relationship(class="form-control", value=name_to_update.relationship) }}
+              <br/>
+              {{ form.profile_picture(class="form-control", value=name_to_update.name) }}
+              <br/>
+              {{  form.submit(class="btn btn-primary btn-sm") }}
+            </form> 
+        </div>
+
+{% endblock content %}

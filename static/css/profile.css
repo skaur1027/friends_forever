@@ -1,0 +1,12 @@
+body {
+  background-color: #e3f2fd;
+  font-size: 20px;
+}
+
+.card {
+  display: flex;
+  overflow: hidden;
+  font-size: 20px;
+  background: #ECE9E6;
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  }

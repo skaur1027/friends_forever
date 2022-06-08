@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+      {{ user.name }}
+    </div>
+    
+    <div class="card-body">
+     
+      <p class="card-text">
+        
+  <div class="container">
+      <div class="row">
+          <div class="col-8">
+  
+      <strong>Name:</strong>
+      {{ user.name }}<br/>
+
+      <strong>User Id:</strong>
+      {{ user.id }}<br/>
+  
+      <strong>Email:</strong>
+      {{ user.email }}<br/>
+
+      <strong>Profile Picture:</strong>
+      {{ user.profile_picture }}<br/>
+        
+      <strong>Date Joined:</strong>
+      {{ user.date_added }}<br/> <br/> <br/>
+      <h1> I am at user page</h1>
+    </p>
+      
+      <a href="{{ url_for('update_user', id=current_user.id) }}" class="btn btn-secondary btn-sm">Update Profile </a>
+      <a href="#" class="btn btn-secondary btn-sm">View Friends</a>
+      <br/>
+</div>  
+<div class="col-4">
+  {% if current_user.profile_picture %}
+  <img class="circular--landscape" src="{{ url_for('static', filename='images/' + current_user.profile_picture) }}" width="200" align="right">
+
+  {% else %}
+    <img class="circular--landscape" src="{{ url_for('static', filename='images/default.jpeg') }}" width="180" align="right">
+  {% endif %}
+ </div>
+ </div>
+  </div></div></div>
+<br/><br/>
+
+<a href="{{ url_for('posts') }}" class="btn btn-secondary btn-sm">View Posts </a>
+<h2>Starting loop</h2>
+
+{% for post in posts %}
+{{ post }} <br/>
+{% endfor %}
+
+{% endblock content %}

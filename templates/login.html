@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/login.css"/>
+
+<div class="split left">
+	<div class="centered">
+
+	</div>
+</div>
+
+<div class="split right">
+	<div class="centered">
+		<h3>
+		{% for message in get_flashed_messages() %}
+	
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{ message }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+		{% endfor %}
+		</h3>
+
+		<h1>Friends Forever</h1>
+		<h6>Start the next chapter of your life with us!</h6><br>
+
+		<form method="POST">
+			{{ form.hidden_tag() }}
+
+
+			{{ form.email(class="form-control") }} <br>
+
+			{{ form.password_hash(id="inputPassword6", class="form-control") }}<br>
+			
+			{{ form.submit(class="btn btn-success") }}<br>
+
+			<p><a href="{{ url_for('add_user') }}">Click here to sign up</a></p>
+		</form>
+	<div>
+</div>
+<!-- Footer -->
+<footer>
+	<div class="text-center">
+		<a href="https://github.com/skaur1027">
+			<img src="/static/images/GitHub-Mark-120px-plus.png" height="20px">
+		</a>            
+		<a href="https://www.linkedin.com/in/sandeep-kaur-singh/">
+			<img src="/static/images/linkedin_icon.png" alt="logo" height="20px">
+		</a>
+		<a href="mailto:malhotra.sandeepk@gmail.com">
+			<img src="/static/images/email_icon.png" alt="logo" height="20px">
+		</a>
+	</div>
+<p class="text-center">© Friends Forever 2022</p>
+</footer>
+{% endblock %}

@@ -1,0 +1,102 @@
+{%  extends "base.html" %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+
+    <div class="alert alert-success alert-dismissible show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/profile.css"/>
+
+    <div class="card">
+        <div class="card-body">
+                <p class="card-text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <strong>Name:</strong>
+                                {{ user.name }}<br/>
+                            
+                                <strong>Email:</strong>
+                                {{ user.email }}<br/>
+                    
+                                <strong>Location:</strong>
+                                {{ user.location }}<br/>
+                    
+                                <strong>Gender:</strong>
+                                {{ user.gender }}<br/>
+                    
+                                <strong>Profession:</strong>
+                                {{ user.profession }}<br/>
+                    
+                                <strong>Hobby:</strong>
+                                {{ user.hobby }}<br/>
+                    
+                                <strong>Favorite Movie:</strong>
+                                {{ user.favorite_movie }}<br/>
+                                
+                                <strong>Favorite Book:</strong>
+                                {{ user.favorite_book }}<br/>
+                    
+                                <strong>Relationship Status:</strong>
+                                {{ user.relationship }}<br/>
+                                
+                                <strong>Date Joined:</strong>
+                                {{ user.date_added.strftime("%m-%d-%Y") }}<br/>
+
+            <br>
+            {% if user.id == current_user.id %}
+            <a href="{{ url_for('update_user', id=current_user.id) }}"class="btn btn-outline-primary btn-sm">Update Profile</a>
+            <a href="{{ url_for('view_friends') }}" class="btn btn-outline-primary btn-sm">View Friends</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Logout</a>
+            {% else %}
+                {% if user.id != current_user.id and user.id not in current_followed_list %}
+                <a href="{{ url_for('follow', id=user.id) }}" class="btn btn-outline-primary btn-sm">Follow</a>
+                {% else %}
+                <a href="{{ url_for('unfollow', id=user.id) }}" class="btn btn-outline-danger btn-sm">Unfollow</a>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    
+        <div class="col-4">
+            {% if user.profile_picture %}
+            <img src="{{ url_for('static', filename='images/' + user.profile_picture) }}" width=auto height=auto align="right">
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default.jpeg') }}" width="250" height="250" align="right">
+            {% endif %}
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    <br>
+
+
+{% for post in posts %}
+<div class="shadow p-3 mb-5 bg-body rounded" style="width: 100; background: #ECE9E6;
+background: linear-gradient(to right, #FFFFFF, #ECE9E6);">
+
+   <h2><a href="{{ url_for('post', id=post.post_id )}}">{{ post.title }}</a></h2>
+  <strong><small>By: </strong>{{ post.poster.name }}<br>
+    <strong>Created: </strong>{{ post.date_posted.strftime("%m-%d-%Y") }}</small>
+    <br><br>
+    {{ post.content|safe }}
+    <a href="{{ url_for('post', id=post.post_id) }}" class="btn btn-outline-primary btn-sm">View Post</a>
+    {% if post.poster_id == current_user.id %}
+    <a href="{{ url_for('edit_post', id=post.post_id )}}" class="btn btn-outline-primary btn-sm">Edit Post</a>
+    <a href="{{ url_for('delete_post', id=post.post_id) }}" class="btn btn-outline-danger btn-sm">Delete Post</a>
+    {% endif %}
+
+
+</div>
+
+{% endfor %}
+
+{%  endblock %}
+

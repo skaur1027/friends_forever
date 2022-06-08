@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	
+{% endfor %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+{% if id == current_user.id %}
+<div class="card">
+  <div class="card-header">
+    Update Profile
+  </div>
+  <div class="card-body">
+    <form action="/dashboard"  method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      {{ form.name(class="form-control", value=name_to_update.name) }}
+      <br/>
+      {{ form.email(class="form-control", value=name_to_update.email) }}
+      <br/>
+      {{ form.gender(class="form-control", value=name_to_update.gender) }}
+      <br/>
+      {{ form.location(class="form-control", value=name_to_update.location) }}
+      <br/>
+      {{ form.profession(class="form-control", value=name_to_update.profession) }}
+      <br/>
+      {{ form.hobby(class="form-control", value=name_to_update.hobby) }}
+      <br/>
+      {{ form.favorite_movie(class="form-control", value=name_to_update.movie) }}
+      <br/>
+      {{ form.favorite_book(class="form-control", value=name_to_update.book) }}
+      <br/>
+      {{ form.relationship(class="form-control", value=name_to_update.relationship) }}
+      <br/>
+      {{ form.profile_picture(class="form-control", value=name_to_update.profile_picture) }}
+      <br/>
+      {{  form.submit(class="btn btn-primary btn-sm") }}
+    </form> 
+</div>
+
+  {% else %}
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    Sorry You cannot Edit this User!
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+{% endif %}
+   
+{% endblock content %}tim

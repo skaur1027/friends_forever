@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	
+{% endfor %}
+
+<div class="container row">
+    <div class="shadow p-4 mb-4 col-lg-12 col-sm-6">
+        <h2><a href="#">{{ post.title }}</a></h2>
+        <strong><small>By:</strong> {{ post.poster.name }}<br/>
+        <strong>Date:</strong> {{ post.date_posted.strftime("%m-%d-%Y") }}</small><br><br>
+        {{ post.content|safe }}
+        <form action="{{ request.path }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group mt-2">
+                {{ form1.comment(class="form-control",value='') }}
+            </div><br>
+            {{ form1.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+    <div class="shadow-sm p-4 col-lg-12 col-sm-6">
+        {% for comment in comments %}
+        <div class="row">
+            <!-- Begin comment indentation -->
+            {% if comment.level() == 0 %}
+            <div class="col-12 border-start border-primary">
+                {% elif comment.level() == 1 %}
+                <div class="col-11 offset-1 border-start border-secondary">
+                    {% elif comment.level() == 2 %}
+                    <div class="col-10 offset-2 border-start border-success">
+                        {% elif comment.level() == 3 %}
+                        <div class="col-9 offset-3 border-start border-info">
+                            {% elif comment.level() == 4 %}
+                            <div class="col-8 offset-4 border-start border-primary">
+                                {% else %}
+                                <div class="col-7 offset-5 border-start border-primary">
+                                    {% endif %}
+                                    <!-- End comment indentation -->
+
+                                    <div>
+                                        <p class="m-0">{{comment.author_name}} : {{comment.text}}</p>
+                                        <a class="" data-bs-toggle="collapse" href="#comment-{{comment.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">Reply
+                                            <i class="bi bi-reply"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="collapse w-50" id="comment-{{comment.id}}">
+                                        <form action="{{ url_for('reply_comment',post_id=post.post_id,comment_id=comment.id) }}" method="POST">
+                                            {{ form2.hidden_tag() }}
+                                        <div class="form-group mt-2">
+                                            {{ form2.reply(class="form-control",value='') }}
+                                        </div><br>
+                                        {{ form2.submit(class="btn btn-primary") }}
+                                    </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

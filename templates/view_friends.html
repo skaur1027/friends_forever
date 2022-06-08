@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+<link rel="stylesheet" href="/static/css/view_friends.css"/>
+
+{% if users %}
+{% for user in users %}
+<div class="card">
+    <div class="card-body">
+
+    <p class="card-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <strong>Name:</strong><a href="{{ url_for('user', name=user.name) }}"> {{ user.name }}</a>
+
+                    </p> <br>
+                    <a href="{{ url_for('user', name=user.name) }}" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    {% if user.id != current_user.id %}
+                    <a href="{{ url_for('unfollow', id=user.id) }}" class="btn btn-outline-danger btn-sm">Unfollow</a>
+                    {% endif %} <br> <br>
+                </div>
+
+                <div class="col-4">
+                    {% if user.profile_picture %}
+                    <img src="{{ url_for('static', filename='images/' + user.profile_picture) }}" width = "200" align="right">
+
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/default.jpeg') }}" width = "180" align="right">
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endif %}
+{% endblock content %}
