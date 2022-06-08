@@ -203,7 +203,6 @@ def friend_suggestion():
     users_favorite_movie = Users.query.filter(func.lower(Users.favorite_movie).like(func.lower(current_user.favorite_movie)))
     users_favorite_book = Users.query.filter(func.lower(Users.favorite_book).like(func.lower(current_user.favorite_book)))
     users = users_location.union(users_profession).union(users_hobby).union(users_favorite_movie).union(users_favorite_book)
-    # suggestions = users.filter_by(users.name!= current_friends.name)
     return render_template('friend_suggestions.html', result=result, users=users)
 
 
@@ -365,7 +364,7 @@ def delete_record(id):
         return render_template('add_users.html', form=form, name=name, our_users=our_users)
 
 @app.route('/add-post', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def add_post():
     form = PostForm()
     if form.validate_on_submit():
