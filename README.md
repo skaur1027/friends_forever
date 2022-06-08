@@ -9,7 +9,7 @@
 * [About the Developer](#developer)
 
 ## <a name="summary"></a>Summary
-**Friends Forever** is a social media web app geared towards retirees. It allows retirees to locate other users in their areas, or other cities to connect with and build social network. A TicketMaster API has also been implemented to allow users to search events by state and its major cities.
+**Friends Forever** is a social media web app geared towards retirees. It allows retirees to locate other users in their areas, or other cities to connect with and build social network. A TicketMaster API has also been implemented to allow users to search events by state and its major cities. For a demo of my app, please visit this link <a href="https://www.youtube.com/watch?v=xgs-lqNrSU0">Friends Forever Demo</a>.
 
 See the <a href="#">Demo Reel.</a>
 
