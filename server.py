@@ -25,8 +25,6 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.config['SECRET_KEY'] = os.environ.get('flask_secret')
 
-print(os.environ.get('flask_secret'), 'AAAAA')
-print(os.environ.get('db_name'), 'DDDDD')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('db_name')
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
